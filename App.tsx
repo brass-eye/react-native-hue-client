@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { Hello } from './components/Hello';
 import { debug } from 'util';
+import ToggleLightButtons from './components/ToggleLightButtons';
 
 type State = {
   lights: Lights,
@@ -30,16 +31,8 @@ export default class App extends React.Component<Props, State> {
   }
 
   render() {
-    debugger;
     return (
-      <View>
-        {Object.keys(this.state.lights).map(lightId => {
-          const light = this.state.lights[lightId];
-          const colour = light.state.on ? 'green' : 'red'
-          return <Button color={colour} key={lightId} title={`Toggle light ${light.name}`}
-            onPress={this.toggleLight(lightId)} />
-        })}
-      </View>
+      <ToggleLightButtons lights={this.state.lights} toggleLight={this.toggleLight} />
     );
   }
 
@@ -73,5 +66,5 @@ export default class App extends React.Component<Props, State> {
 }
 
 // todo seperate the state update and api call in toggle light
-// todo make seperte button componendt
 // api class
+// transform api repsonse to actual type
