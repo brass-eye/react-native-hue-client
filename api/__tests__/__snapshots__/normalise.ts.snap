@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing changing shape of api response transforms lights 1`] = `
+Array [
+  Object {
+    "brightness": 254,
+    "hue": 7676,
+    "lightId": "4",
+    "name": "Bedroom Lamp",
+    "on": true,
+    "reachable": true,
+    "saturation": 199,
+    "type": "Extended color light",
+  },
+  Object {
+    "brightness": 254,
+    "hue": 7676,
+    "lightId": "5",
+    "name": "Bedroom Ceiling",
+    "on": true,
+    "reachable": true,
+    "saturation": 199,
+    "type": "Extended color light",
+  },
+  Object {
+    "brightness": 124,
+    "hue": 8418,
+    "lightId": "6",
+    "name": "Living room",
+    "on": false,
+    "reachable": true,
+    "saturation": 140,
+    "type": "Extended color light",
+  },
+]
+`;
