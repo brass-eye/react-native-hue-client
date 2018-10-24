@@ -1,7 +1,4 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { Hello } from './components/Hello';
-import { debug } from 'util';
 import ToggleLightButtons from './components/ToggleLightButtons';
 
 type State = {
