@@ -1,18 +1,18 @@
-type Light = {
-    state: LightState,
+export type LightIdentity = {
     type: string,
-    name: string 
-    // lightId: string, // A light should be in charge of its own id. need to make some transformation Process to actually get it here and not from the parent object
+    name: string
+    lightId: string,
 }
 
-type LightState = {
+export type LightState = {
     on: boolean,
-    bri: number,
+    brightness: number,
     hue: number,
-    sat: number,
+    saturation: number,
     reachable: boolean,
 };
 
-type Lights = {
-    [lightId: string]: Light;
-}
+export type Light = LightIdentity & LightState;
+
+
+export type Lights = Light[];
