@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button} from 'react-native';
+import { Light } from '../hue/light';
 
 type Props = {
     light: Light,
@@ -8,7 +9,7 @@ type Props = {
 
 const LightButton: React.SFC<Props> = props => {
     const {light, onClick} = props;
-    const colour = light.state.on ? 'green' : 'red';
+    const colour = light.on ? 'green' : 'red';
 
     return <Button color={colour} title={`Toggle light ${light.name}`}
         onPress={onClick} />;

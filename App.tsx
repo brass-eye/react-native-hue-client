@@ -1,5 +1,7 @@
 import * as React from 'react';
 import ToggleLightButtons from './components/ToggleLightButtons';
+import { Lights, Light } from './hue/light';
+import { normaliseLights } from './api/normalise';
 
 type State = {
   lights: Lights,
@@ -19,7 +21,7 @@ export default class App extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
-    this.state = { lights: {}}
+    this.state = { lights: []}
   }
 
   componentDidMount = async () => {
@@ -33,15 +35,18 @@ export default class App extends React.Component<Props, State> {
     );
   }
 
-  toggleLight = (lightId: string) => () => {
+  // pergaps we should pass index, not light to avoid array.findindex
+  toggleLight = (light: Light) => () => {
     // console.log(this.state.lights[lightId]);
     const { hubIpAddress, apiKey } = this.props;
+    const {on, lightId} = light;
     const uri = `http://${hubIpAddress}/api/${apiKey}/lights/${lightId}/state`;
-    const lightOn = !this.state.lights[lightId].state.on;
+    const lightOn = !on;
     const action = { on: lightOn};
-    const state = {...this.state}
-    state.lights[lightId].state.on = lightOn;
-    debugger;
+    const index = this.state.lights.findIndex( e => e.lightId == lightId);
+    const lights = [...this.state.lights];
+    lights[index] = {...lights[index], on}
+    
     fetch(uri,
       {
         body: JSON.stringify(action),
@@ -49,7 +54,7 @@ export default class App extends React.Component<Props, State> {
       })
       .then(r => r.json())
       .then(() => this.setState(
-        {...state}))
+        {lights}))
   }
 
 
@@ -57,7 +62,7 @@ export default class App extends React.Component<Props, State> {
     const { hubIpAddress, apiKey } = this.props;
     const uri = `http://${hubIpAddress}/api/${apiKey}/lights`;
     const r = await fetch(uri);
-    return await r.json();
+    return normaliseLights(await r.json());
   }
 
 }
